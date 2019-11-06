@@ -130,7 +130,7 @@ export default function Main({ history }) {
                     { columnName: 'ufcnh', width: '10px' },
                     { columnName: 'celular', width: '20px' },
                     { columnName: 'sexo', width: '10px' },
-                    { columnName: 'nascimento', width: 'auto' },
+                    { columnName: 'nascimento', width: '60px' },
                 ];
                 const rows = [];
                 const alunoS = response.data.dados;
