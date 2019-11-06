@@ -6,6 +6,14 @@
 
 Aqui está a implementação do aplicativo web utilizado pela parte administrativa do projeto.
 
+## Colaboradores
+
+@ggarciabas
+
+@fritsche
+
+Esta implementação foi desenvolvida de forma voluntária para auxiliar na administração de turmas e alunos do projeto.
+
 ## Módulos utilizados
 
 ```
