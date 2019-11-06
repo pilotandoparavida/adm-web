@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/adm-web/static/css/main.dc31365c.chunk.css",
-    "main.js": "/adm-web/static/js/main.825457d7.chunk.js",
-    "main.js.map": "/adm-web/static/js/main.825457d7.chunk.js.map",
+    "main.css": "/adm-web/static/css/main.3f2f0b61.chunk.css",
+    "main.js": "/adm-web/static/js/main.b7903e11.chunk.js",
+    "main.js.map": "/adm-web/static/js/main.b7903e11.chunk.js.map",
     "runtime-main.js": "/adm-web/static/js/runtime-main.f9c2da7a.js",
     "runtime-main.js.map": "/adm-web/static/js/runtime-main.f9c2da7a.js.map",
     "static/js/2.c56a1930.chunk.js": "/adm-web/static/js/2.c56a1930.chunk.js",
     "static/js/2.c56a1930.chunk.js.map": "/adm-web/static/js/2.c56a1930.chunk.js.map",
     "index.html": "/adm-web/index.html",
-    "precache-manifest.c5db9767414fd766e63c3040ef49ecf5.js": "/adm-web/precache-manifest.c5db9767414fd766e63c3040ef49ecf5.js",
+    "precache-manifest.d8575c551cebb3ed25778ac51662c499.js": "/adm-web/precache-manifest.d8575c551cebb3ed25778ac51662c499.js",
     "service-worker.js": "/adm-web/service-worker.js",
-    "static/css/main.dc31365c.chunk.css.map": "/adm-web/static/css/main.dc31365c.chunk.css.map",
+    "static/css/main.3f2f0b61.chunk.css.map": "/adm-web/static/css/main.3f2f0b61.chunk.css.map",
     "static/media/App.css": "/adm-web/static/media/background.48a7c919.jpg",
     "static/media/logo.png": "/adm-web/static/media/logo.90f64a36.png"
   },
   "entrypoints": [
     "static/js/runtime-main.f9c2da7a.js",
     "static/js/2.c56a1930.chunk.js",
-    "static/css/main.dc31365c.chunk.css",
-    "static/js/main.825457d7.chunk.js"
+    "static/css/main.3f2f0b61.chunk.css",
+    "static/js/main.b7903e11.chunk.js"
   ]
 }
