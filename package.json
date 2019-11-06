@@ -1,7 +1,17 @@
 {
-  "name": "admfrontend_ppv",
-  "version": "0.0.2",
+  "name": "adm-web",
+  "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "Giovanna Garcia Basilio",
+    "email": "ggarciabas@gmail.com",
+    "url": "euelecavaloaco.github.io"
+  },
+  "maintainers": [
+    "Giovanna Garcia Basilio <ggarciabas@gmail.com> (euelecavaloaco.github.io)"
+  ],
+  "homepage": "https://pilotandoparavida.github.io/adm-web",
   "dependencies": {
     "@devexpress/dx-react-core": "^2.2.0",
     "@devexpress/dx-react-grid": "^2.2.0",
@@ -15,13 +25,16 @@
     "react-dom": "^16.11.0",
     "react-pure-loaders": "^3.0.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.2.0",
+    "gh-pages": "^2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
