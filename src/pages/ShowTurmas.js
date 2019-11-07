@@ -37,9 +37,9 @@ async function ShowTurmas() {
             { columnName: 'descricao', width: 'auto' },
             { columnName: 'vagas', width: '5px' },
             { columnName: 'totalinscritos', width: '10px' },
-            { columnName: 'confirmado', width: '15px' },
-            { columnName: 'transferido', width: '20px' },
-            { columnName: 'concluido', width: '20px' },
+            { columnName: 'confirmado', width: '25px' },
+            { columnName: 'transferido', width: '25px' },
+            { columnName: 'concluido', width: '15px' },
             { columnName: 'faltoso', width: '15px' },
         ];
         const rows = [];
