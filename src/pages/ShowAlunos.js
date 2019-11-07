@@ -19,7 +19,6 @@ async function ShowAlunos() {
         const columns = [
             { name: 'nome', title: 'Nome' },
             { name: 'cnh', title: 'CNH' },
-            { name: 'ufcnh', title: 'UF CNH' },
             { name: 'nascimento', title: 'Nascimento' },
             { name: 'celular', title: 'Celular' },
             { name: 'sexo', title: 'Sexo' },
@@ -30,18 +29,16 @@ async function ShowAlunos() {
         const tableColumnExtensions = [
             { columnName: 'nome', width: 'auto' },
             { columnName: 'cnh', width: '50px' },
-            { columnName: 'ufcnh', width: '10px' },
             { columnName: 'celular', width: '20px' },
-            { columnName: 'sexo', width: '10px' },
-            { columnName: 'nascimento', width: '60px' },
+            { columnName: 'sexo', width: '5px' },
+            { columnName: 'nascimento', width: '30px' },
         ];
         const rows = [];
         const alunoS = response.data.dados;
         for (let i = 0; i < alunoS.length; ++i) {
             rows.push({
                 nome: alunoS[i].nome,
-                cnh: alunoS[i].cnh,
-                ufcnh: alunoS[i].ufcnh,
+                cnh: alunoS[i].cnh+'/'+alunoS[i].ufcnh,
                 celular: alunoS[i].celular,
                 sexo: alunoS[i].sexo,
                 nascimento: alunoS[i].nascimento,
