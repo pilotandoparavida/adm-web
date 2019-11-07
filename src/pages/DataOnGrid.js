@@ -8,7 +8,6 @@ import {
 } from '@devexpress/dx-react-grid';
 
 function DataOnGrid (props) {
-    console.log("aqiii: " + props);
     return (
         <>
             <h1>{props.title}</h1>
