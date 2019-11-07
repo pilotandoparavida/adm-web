@@ -2,9 +2,18 @@ import React from 'react';
 import DataOnGrid from './DataOnGrid'
 import api from '../services/api';
 import ReactDOM from 'react-dom';
-
+import { BallBeat } from 'react-pure-loaders';
 
 function ShowAlunos() {
+    ReactDOM.render(
+        <div className="fetching">
+            <BallBeat
+                color={'#F58D50'}
+                loading={true}
+            />
+        </div>         
+    , document.getElementById('data'));
+
     api.get('/aluno')
         .then((response) => {
             const columns = [

@@ -25,4 +25,6 @@ Esta implementação foi desenvolvida de forma voluntária para auxiliar na admi
 6- yarn add @material-ui/core
 7- yarn add @material-ui/icons
 8- yarn add material-ui-icons
+9- yarn add react-pure-loaders
+10- yarn add react-spinners --save
 ```
