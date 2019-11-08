@@ -27,6 +27,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { withStyles } from '@material-ui/core/styles';
 
 import {PercentBarCell} from './PercentBarCell'
+import {EstadoCell} from './EstadoCell'
 import ListTurma from './ListTurma'
 import ListAluno from './ListAluno';
 
@@ -169,13 +170,19 @@ export default function Main({ history }) {
     const Cell = (props) => {
         const { column } = props;        
 
-        if (percentBar.hasOwnProperty(column.name)) {
-            if (props.row.hasOwnProperty('descricao')) {
-                if (props.row.descricao === "ESPERA") {
-                    return <Table.Cell {...props} />;
+        if (typeData === "Turma") {
+            if (percentBar.hasOwnProperty(column.name)) {
+                if (props.row.hasOwnProperty('descricao')) {
+                    if (props.row.descricao === "ESPERA") {
+                        return <Table.Cell {...props} />;
+                    }
                 }
+                return <PercentBarCell {...props} />;
             }
-            return <PercentBarCell {...props} />;
+        } else { // Aluno
+            if (column.name === "estado") {
+                return <EstadoCell {...props} />
+            }
         }
 
         return <Table.Cell {...props} />;

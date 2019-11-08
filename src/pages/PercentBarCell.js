@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
 import { lighten, withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -15,14 +14,14 @@ const BorderLinearProgress = withStyles({
     },
 })(LinearProgress);
 
-const PercentBarCellBase = ({ value, style, row }) => {
+const PercentBarCellBase = ({ value, style, row, ...restProps }) => {
     let percent = value * 100;
     if (row.hasOwnProperty('vagas')) {
         percent = value*100/row.vagas;
     }
     return (
         <TableCell
-            style={style}
+            {...restProps}
         >
             <center>{value} ({percent.toFixed(2)}%)</center>
             <BorderLinearProgress
@@ -32,15 +31,6 @@ const PercentBarCellBase = ({ value, style, row }) => {
             />
         </TableCell>
     );
-};
-
-PercentBarCellBase.propTypes = {
-    value: PropTypes.number.isRequired,
-    row: PropTypes.object,
-    style: PropTypes.object,
-};
-PercentBarCellBase.defaultProps = {
-    style: {},
 };
 
 export const PercentBarCell = PercentBarCellBase;
