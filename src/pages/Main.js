@@ -162,6 +162,7 @@ export default function Main({ history }) {
     );
     const [loadingTurma, setLoadingTurma] = useState(false);
     const [loadingAluno, setLoadingAluno] = useState(false);
+    const [typeData, setTypeData] = useState('');
     const [columns] = useState([
         { name: 'data', title: 'Data' },
         { name: 'descricao', title: 'Descrição' },
@@ -174,6 +175,7 @@ export default function Main({ history }) {
     ]);
     const [rows, setRows] = useState([]);
     const [tableColumnExtensions] = useState([
+        { columnName: 'data', width: 180, align: 'center' },
         { columnName: 'data', width: 180, align: 'center' },
         { columnName: 'descricao', width: 250, align: 'right' },
         { columnName: 'vagas', width: 180, align: 'center' },
@@ -256,13 +258,16 @@ export default function Main({ history }) {
     }
 
     async function ShowTurmas() {
+        setTypeData('Turma');
         setLoadingTurma(true);
         setRows(await ListTurma());
         setLoadingTurma(false);
     }
 
     function ShowAlunos() {
+        setTypeData('Aluno');
         setLoadingAluno(true);
+        setRows([]);
         setLoadingAluno(false);
     }
 
@@ -274,17 +279,19 @@ export default function Main({ history }) {
                 <div className="content">
                     <div style={{ 'display': 'flex', 'flexDirection': 'row' }}>
                         <button style={{ 'margin': '5px' }} onClick={ShowTurmas}>
-                            {loadingTurma && <CircularProgress disableShrink size="20px" color="#FFFFF"/>}
+                            {loadingTurma && <CircularProgress disableShrink size="20px" style={{color:"#FFF"}} />}
                             {!loadingTurma && "Turma"}
                         </button>
                         <button style={{ 'margin': '5px' }} onClick={ShowAlunos}>
-                            {loadingAluno && <CircularProgress disableShrink size="20px" color="#FFFFF"/>}
+                            {loadingAluno && <CircularProgress disableShrink size="20px" style={{colorPrimary:"#FFF"}} />}
                             {!loadingAluno && "Aluno"}
                         </button>
                     </div>
                 </div>
             </div>
             <div className="data" id="data">
+                <center><h1>{typeData}</h1></center>
+                <p/>
                 <Paper>
                     <Grid
                         rows={rows}
