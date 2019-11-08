@@ -165,7 +165,6 @@ export default function Main({ history }) {
     const [columnOrder, setColumnOrder] = useState([]);    
     const [percentBar, setPercentBar] = useState({});
     const [totalSummaryItems, setTotalSummaryItems] = useState([]);
-    
 
     const Cell = (props) => {
         const { column } = props;        
@@ -228,6 +227,8 @@ export default function Main({ history }) {
             localStorage.removeItem('@admfrontendppv/hash');
             if (history) history.push('/login');
         }
+        ShowAlunos();
+        // eslint-disable-next-line
     }, [login, hash, history]);
 
     function handleLogout() {
@@ -273,7 +274,7 @@ export default function Main({ history }) {
         setLoadingTurma(false);
     }
 
-    async function ShowAlunos() {        
+    async function ShowAlunos() {            
         setLoadingAluno(true);
         setTypeData('Aluno');
         setRows([]);
