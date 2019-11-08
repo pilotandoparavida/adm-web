@@ -150,6 +150,8 @@ export default function Main({ history }) {
     );
     const [loadingTurma, setLoadingTurma] = useState(false);
     const [loadingAluno, setLoadingAluno] = useState(false);
+    const [rowsAluno, setRowsAluno] = useState([]);
+    const [rowsTurma, setRowsTurma] = useState([]);
     const [typeData, setTypeData] = useState('');
     const [sorting, getSorting] = useState([]);
     const [editingRowIds, getEditingRowIds] = useState([]);
@@ -228,14 +230,21 @@ export default function Main({ history }) {
         setRows(changedRows);
     };
 
+    useEffect (() => { // executa uma única vez
+        async function fetchData () {
+            setRowsAluno(await ListAluno());
+            setRowsTurma(await ListTurma());
+        }
+        fetchData();
+        // eslint-disable-next-line
+    }, []);
+
     useEffect(() => {
         if (login === '' || hash === '' || hash === undefined || login === undefined) {
             localStorage.removeItem('@admfrontendppv/login');
             localStorage.removeItem('@admfrontendppv/hash');
             if (history) history.push('/login');
-        }
-        ShowTurmas();
-        // eslint-disable-next-line
+        }                
     }, [login, hash, history]);
 
     function handleLogout() {
@@ -277,11 +286,11 @@ export default function Main({ history }) {
             { columnName: 'confirmado', type: 'sum' },
             { columnName: 'transferido', type: 'sum' },
         ]);
-        setRows(await ListTurma());
+        setRows(rowsTurma);
         setLoadingTurma(false);
     }
 
-    async function ShowAlunos() {            
+    async function ShowAlunos() {   
         setLoadingAluno(true);
         setTypeData('Aluno');
         setRows([]);
@@ -306,7 +315,7 @@ export default function Main({ history }) {
             { name: 'estado', title: 'Estado' },
         ]);
         setColumnOrder(['nome', 'cnh', 'nascimento', 'celular', 'sexo', 'turma', 'data', 'estado']);
-        setRows(await ListAluno());
+        setRows(rowsAluno);
         setLoadingAluno(false);
     }
 
