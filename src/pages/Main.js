@@ -239,6 +239,7 @@ export default function Main({ history }) {
     async function ShowTurmas() {
         setLoadingTurma(true);
         setTypeData('Turma');
+        setRows([]);
         setTableColumnExtensions([
             { columnName: 'data', width: 100, align: 'center' },
             { columnName: 'descricao', width: 150, align: 'left' },
@@ -272,9 +273,10 @@ export default function Main({ history }) {
         setLoadingTurma(false);
     }
 
-    async function ShowAlunos() {
+    async function ShowAlunos() {        
         setLoadingAluno(true);
         setTypeData('Aluno');
+        setRows([]);
         setTableColumnExtensions([
             { columnName: 'nome', width: 300, align: 'left' },
             { columnName: 'cnh', width: 150, align: 'right' },

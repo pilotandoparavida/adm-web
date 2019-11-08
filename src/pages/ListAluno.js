@@ -7,6 +7,7 @@ async function ListAluno() {
         const alunoS = response.data.dados;
         for (let i = 0; i < alunoS.length; ++i) {
             rows.push({
+                id: alunoS[i]._id,
                 nome: alunoS[i].nome,
                 cnh: alunoS[i].cnh + '/' + alunoS[i].ufcnh,
                 celular: alunoS[i].celular,
