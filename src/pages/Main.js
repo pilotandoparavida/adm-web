@@ -18,6 +18,7 @@ import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TableCell from '@material-ui/core/TableCell';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
@@ -159,7 +160,8 @@ export default function Main({ history }) {
     const [hash] = useState(
         localStorage.getItem('@admfrontendppv/hash') || ''
     );
-
+    const [loadingTurma, setLoadingTurma] = useState(false);
+    const [loadingAluno, setLoadingAluno] = useState(false);
     const [columns] = useState([
         { name: 'data', title: 'Data' },
         { name: 'descricao', title: 'Descrição' },
@@ -254,11 +256,14 @@ export default function Main({ history }) {
     }
 
     async function ShowTurmas() {
+        setLoadingTurma(true);
         setRows(await ListTurma());
+        setLoadingTurma(false);
     }
 
     function ShowAlunos() {
-
+        setLoadingAluno(true);
+        setLoadingAluno(false);
     }
 
     return (
@@ -269,10 +274,12 @@ export default function Main({ history }) {
                 <div className="content">
                     <div style={{ 'display': 'flex', 'flexDirection': 'row' }}>
                         <button style={{ 'margin': '5px' }} onClick={ShowTurmas}>
-                            Turma
+                            {loadingTurma && <CircularProgress disableShrink size="20px" color="#FFFFF"/>}
+                            {!loadingTurma && "Turma"}
                         </button>
                         <button style={{ 'margin': '5px' }} onClick={ShowAlunos}>
-                            Aluno
+                            {loadingAluno && <CircularProgress disableShrink size="20px" color="#FFFFF"/>}
+                            {!loadingAluno && "Aluno"}
                         </button>
                     </div>
                 </div>
