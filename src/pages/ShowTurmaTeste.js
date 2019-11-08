@@ -150,7 +150,7 @@ const EditCell = (props) => {
 
 const getRowId = row => row.id;
 
-export default async function Turma() {
+async function ShowTurmaTeste() {
   const [columns] = useState([
     { name: 'data', title: 'Data' },
     { name: 'descricao', title: 'Descrição' },
@@ -298,3 +298,5 @@ export default async function Turma() {
     </Paper>
   );
 };
+
+export default ShowTurmaTeste;

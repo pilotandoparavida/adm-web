@@ -24,6 +24,7 @@ async function ListTurma() {
                 else if (AlunoTurma[j].estado === "FALTOSO") falt++;
             }
             rows.push({
+                id: turmaS[i]._id,
                 data: convertDate(turmaS[i].data),
                 descricao: turmaS[i].descricao,
                 vagas: turmaS[i].vagas,
