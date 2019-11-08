@@ -26,8 +26,9 @@ import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { withStyles } from '@material-ui/core/styles';
 
-import ListTurma from './Utils'
 import {PercentBarCell} from './PercentBarCell'
+import ListTurma from './ListTurma'
+import ListAluno from './ListAluno';
 
 const styles = theme => ({
     lookupEditCell: {
@@ -149,28 +150,6 @@ export default function Main({ history }) {
     const [loadingTurma, setLoadingTurma] = useState(false);
     const [loadingAluno, setLoadingAluno] = useState(false);
     const [typeData, setTypeData] = useState('');
-    const [columns] = useState([
-        { name: 'data', title: 'Data' },
-        { name: 'descricao', title: 'Descrição' },
-        { name: 'vagas', title: 'Vagas' },
-        { name: 'totalinscritos', title: 'Inscritos' },
-        { name: 'confirmado', title: 'Confirmados' },
-        { name: 'transferido', title: 'Transferidos' },
-        { name: 'concluido', title: 'Concluído' },
-        { name: 'faltoso', title: 'Faltoso' },
-    ]);
-    const [rows, setRows] = useState([]);
-    const [tableColumnExtensions] = useState([
-        { columnName: 'data', width: 180, align: 'center' },
-        { columnName: 'data', width: 180, align: 'center' },
-        { columnName: 'descricao', width: 250, align: 'right' },
-        { columnName: 'vagas', width: 180, align: 'center' },
-        { columnName: 'totalinscritos', width: 180, align: 'center' },
-        { columnName: 'confirmado', width: 180, align: 'center' },
-        { columnName: 'concluido', width: 180, align: 'center' },
-        { columnName: 'faltoso', width: 180, align: 'center' },
-        { columnName: 'transferido', width: 180, align: 'center' },
-    ]);
     const [sorting, getSorting] = useState([]);
     const [editingRowIds, getEditingRowIds] = useState([]);
     const [addedRows, setAddedRows] = useState([]);
@@ -178,16 +157,15 @@ export default function Main({ history }) {
     const [currentPage, setCurrentPage] = useState(0);
     const [pageSize, setPageSize] = useState(0);
     const [pageSizes] = useState([5, 10, 0]);
-    const [columnOrder, setColumnOrder] = useState(['data', 'descricao', 'vagas', 'totalinscritos', 'confirmado', 'concluido', 'faltoso', 'transferido']);
-    const [percentBar] = useState({ confirmado: true, totalinscritos: true, concluido: true, faltoso: true, transferido: true })
     const [leftFixedColumns] = useState([TableEditColumn.COLUMN_TYPE]);
-    const [totalSummaryItems] = useState([
-        { columnName: 'concluido', type: 'sum' },
-        { columnName: 'totalinscritos', type: 'sum' },
-        { columnName: 'faltoso', type: 'sum' },
-        { columnName: 'confirmado', type: 'sum' },
-        { columnName: 'transferido', type: 'sum' },
-    ]);
+
+    const [columns, setColumns] = useState([]);    
+    const [rows, setRows] = useState([]);
+    const [tableColumnExtensions, setTableColumnExtensions] = useState([]);
+    const [columnOrder, setColumnOrder] = useState([]);    
+    const [percentBar, setPercentBar] = useState({});
+    const [totalSummaryItems, setTotalSummaryItems] = useState([]);
+    
 
     const Cell = (props) => {
         const { column } = props;        
@@ -259,16 +237,63 @@ export default function Main({ history }) {
     }
 
     async function ShowTurmas() {
-        setTypeData('Turma');
         setLoadingTurma(true);
+        setTypeData('Turma');
+        setTableColumnExtensions([
+            { columnName: 'data', width: 100, align: 'center' },
+            { columnName: 'descricao', width: 150, align: 'left' },
+            { columnName: 'vagas', width: 100, align: 'center' },
+            { columnName: 'totalinscritos', width: 130, align: 'center' },
+            { columnName: 'confirmado', width: 140, align: 'center' },
+            { columnName: 'concluido', width: 130, align: 'center' },
+            { columnName: 'faltoso', width: 130, align: 'center' },
+            { columnName: 'transferido', width: 130, align: 'center' },
+        ]);
+        setColumns([
+            { name: 'data', title: 'Data' },
+            { name: 'descricao', title: 'Descrição' },
+            { name: 'vagas', title: 'Vagas' },
+            { name: 'totalinscritos', title: 'Inscritos' },
+            { name: 'confirmado', title: 'Confirmados' },
+            { name: 'transferido', title: 'Transferidos' },
+            { name: 'concluido', title: 'Concluído' },
+            { name: 'faltoso', title: 'Faltoso' },
+        ]);
+        setColumnOrder(['data', 'descricao', 'vagas', 'totalinscritos', 'confirmado', 'concluido', 'faltoso', 'transferido']);
+        setPercentBar({ confirmado: true, totalinscritos: true, concluido: true, faltoso: true, transferido: true });
+        setTotalSummaryItems([
+            { columnName: 'concluido', type: 'sum' },
+            { columnName: 'totalinscritos', type: 'sum' },
+            { columnName: 'faltoso', type: 'sum' },
+            { columnName: 'confirmado', type: 'sum' },
+            { columnName: 'transferido', type: 'sum' },
+        ]);
         setRows(await ListTurma());
         setLoadingTurma(false);
     }
 
-    function ShowAlunos() {
-        setTypeData('Aluno');
+    async function ShowAlunos() {
         setLoadingAluno(true);
-        setRows([]);
+        setTypeData('Aluno');
+        setTableColumnExtensions([
+            { columnName: 'nome', width: 300, align: 'left' },
+            { columnName: 'cnh', width: 150, align: 'right' },
+            { columnName: 'nascimento', width: 130, align: 'center' },
+            { columnName: 'celular', width: 130, align: 'left' },
+            { columnName: 'sexo', width: 80, align: 'center' },
+        ]);
+        setColumns([
+            { name: 'nome', title: 'Nome' },
+            { name: 'cnh', title: 'CNH' },
+            { name: 'nascimento', title: 'Nascimento' },
+            { name: 'celular', title: 'Celular' },
+            { name: 'sexo', title: 'Sexo' },
+            // { name: 'email', title: 'E-mail' },
+            // { name: 'cpf', title: 'CPF' },
+            // { name: 'rg', title: 'RG'},
+        ]);
+        setColumnOrder(['nome', 'cnh', 'nascimento', 'celular', 'sexo']);
+        setRows(await ListAluno());
         setLoadingAluno(false);
     }
 
@@ -284,7 +309,7 @@ export default function Main({ history }) {
                             {!loadingTurma && "Turma"}
                         </button>
                         <button style={{ 'margin': '5px' }} onClick={ShowAlunos}>
-                            {loadingAluno && <CircularProgress disableShrink size="20px" style={{ colorPrimary: "#FFF" }} />}
+                            {loadingAluno && <CircularProgress disableShrink size="20px" style={{ color: "#FFF" }} />}
                             {!loadingAluno && "Aluno"}
                         </button>
                     </div>

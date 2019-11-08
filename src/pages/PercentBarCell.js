@@ -24,13 +24,12 @@ const PercentBarCellBase = ({ value, style, row }) => {
         <TableCell
             style={style}
         >
+            <center>{value} ({percent.toFixed(2)}%)</center>
             <BorderLinearProgress
                 variant="determinate"
                 color="secondary"
                 value={percent}
-            >
-                percent
-            </BorderLinearProgress>
+            />
         </TableCell>
     );
 };
