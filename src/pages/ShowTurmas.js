@@ -1,8 +1,8 @@
 import React from 'react';
 import DataOnGrid from './DataOnGrid'
-import api from '../services/api';
 import ReactDOM from 'react-dom';
 import { BallBeat } from 'react-pure-loaders';
+import ListTurma from './Utils'
 
 async function ShowTurmas() {
 
@@ -15,13 +15,8 @@ async function ShowTurmas() {
         </div>
         , document.getElementById('data'));
 
-    function convertDate(data) {
-        const date = new Date(data);
-        return date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
-    }
-
     try {
-        const response = await api.get('/turma');
+
         const columns = [
             { name: 'data', title: 'Data' },
             { name: 'descricao', title: 'Descrição' },
@@ -33,49 +28,16 @@ async function ShowTurmas() {
             { name: 'faltoso', title: 'Faltoso' },
         ];
         const tableColumnExtensions = [
-            { columnName: 'data', width: '10px' },
-            { columnName: 'descricao', width: 'auto' },
-            { columnName: 'vagas', width: '5px' },
-            { columnName: 'totalinscritos', width: '10px' },
-            { columnName: 'confirmado', width: '25px' },
-            { columnName: 'transferido', width: '25px' },
-            { columnName: 'concluido', width: '15px' },
-            { columnName: 'faltoso', width: '15px' },
+            { columnName: 'data', width: 180, align: 'center' },
+            { columnName: 'descricao', width: 250, align: 'right' },
+            { columnName: 'vagas', width: 180, align: 'center' },
+            { columnName: 'totalinscritos', width: 180, align: 'center' },
+            { columnName: 'confirmado', width: 180, align: 'center' },
+            { columnName: 'concluido', width: 180, align: 'center' },
+            { columnName: 'faltoso', width: 180, align: 'center' },
+            { columnName: 'transferido', width: 180, align: 'center' },
         ];
-        const rows = [];
-        const turmaS = response.data.dados;
-        for (let i = 0; i < turmaS.length; ++i) {
-            try {
-                const rTurma = await api.get('/aluno/turma', { headers: { 'turma_id': turmaS[i]._id } });
-                let conf = 0;
-                let transf = 0;
-                let conc = 0;
-                let falt = 0;
-                const AlunoTurma = rTurma.data.dados;
-                for (let j = 0; j < AlunoTurma.length; ++j) {
-                    if (AlunoTurma[j].estado === "CONCLUIDO") conf++;
-                    else if (AlunoTurma[j].estado === "TRANSFERIDO") transf++;
-                    else if (AlunoTurma[j].estado === "CONFIRMADO") conf++;
-                    else if (AlunoTurma[j].estado === "FALTOSO") falt++;
-                }
-                rows.push({
-                    data: convertDate(turmaS[i].data),
-                    descricao: turmaS[i].descricao,
-                    vagas: turmaS[i].vagas,
-                    totalinscritos: turmaS[i].totalinscritos,
-                    confirmado: conf,
-                    concluido: conc,
-                    transferido: transf,
-                    faltoso: falt,
-                });
-            } catch (e) {
-                if (e.response) {
-                    console.log(e.response.data.msg);
-                }
-                alert("Error!");
-            }
-        }
-
+        const rows = await ListTurma();
         ReactDOM.render(
             <DataOnGrid
                 title='Turma'

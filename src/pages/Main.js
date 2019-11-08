@@ -3,9 +3,12 @@ import logo from '../assets/logo.png';
 import './Main.css'
 import ShowTurmas from './ShowTurmas'
 import ShowAlunos from './ShowAlunos'
+import DataGridTeste from './DataGridTeste'
 
 /// https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/getting-started/
 /// https://devexpress.github.io/devextreme-reactive/react/grid/
+
+// css: https://material-ui.com/pt/components/grid/
 
 export default function Main({ history }) {
     const [login] = useState(
@@ -41,6 +44,9 @@ export default function Main({ history }) {
                         </button>
                         <button style={{ 'margin': '5px' }} onClick={ShowAlunos}>
                             Aluno
+                        </button>
+                        <button onClick={DataGridTeste}>
+                            Teste
                         </button>
                     </div>
                 </div>
