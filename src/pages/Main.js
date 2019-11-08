@@ -234,7 +234,7 @@ export default function Main({ history }) {
             localStorage.removeItem('@admfrontendppv/hash');
             if (history) history.push('/login');
         }
-        ShowAlunos();
+        ShowTurmas();
         // eslint-disable-next-line
     }, [login, hash, history]);
 
@@ -262,9 +262,9 @@ export default function Main({ history }) {
             { name: 'data', title: 'Data' },
             { name: 'descricao', title: 'Descrição' },
             { name: 'vagas', title: 'Vagas' },
-            { name: 'totalinscritos', title: 'Inscritos' },
-            { name: 'confirmado', title: 'Confirmados' },
-            { name: 'transferido', title: 'Transferidos' },
+            { name: 'totalinscritos', title: 'Inscrito' },
+            { name: 'confirmado', title: 'Confirmado' },
+            { name: 'transferido', title: 'Transferido' },
             { name: 'concluido', title: 'Concluído' },
             { name: 'faltoso', title: 'Faltoso' },
         ]);
