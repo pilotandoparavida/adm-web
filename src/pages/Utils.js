@@ -23,17 +23,31 @@ async function ListTurma() {
                 else if (AlunoTurma[j].estado === "CONFIRMADO") conf++;
                 else if (AlunoTurma[j].estado === "FALTOSO") falt++;
             }
-            rows.push({
-                id: turmaS[i]._id,
-                data: convertDate(turmaS[i].data),
-                descricao: turmaS[i].descricao,
-                vagas: turmaS[i].vagas,
-                totalinscritos: turmaS[i].totalinscritos,
-                confirmado: conf,
-                concluido: conc,
-                transferido: transf,
-                faltoso: falt,
-            });
+            if (turmaS[i].descricao === "ESPERA") {
+                rows.push({
+                    id: turmaS[i]._id,
+                    data: "À definir",
+                    descricao: turmaS[i].descricao,
+                    vagas: 0,
+                    totalinscritos: turmaS[i].totalinscritos,
+                    confirmado: 0,
+                    concluido: 0,
+                    faltoso: 0,
+                    transferido: 0,
+                });
+            } else {
+                rows.push({
+                    id: turmaS[i]._id,
+                    data: convertDate(turmaS[i].data),
+                    descricao: turmaS[i].descricao,
+                    vagas: turmaS[i].vagas,
+                    totalinscritos: turmaS[i].totalinscritos,
+                    confirmado: conf,
+                    concluido: conc,
+                    faltoso: falt,
+                    transferido: transf,
+                });
+            }
         } catch (e) {
             if (e.response) {
                 console.log(e.response.data.msg);

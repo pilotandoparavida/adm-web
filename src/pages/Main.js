@@ -27,10 +27,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import { withStyles } from '@material-ui/core/styles';
 
 import ListTurma from './Utils'
-
-import { ProgressBarCell } from '../theme-sources/material-ui/components/progress-bar-cell';
-import { HighlightedCell } from '../theme-sources/material-ui/components/highlighted-cell';
-import { PercentTypeProvider } from '../theme-sources/material-ui/components/percent-type-provider';
+import {PercentBarCell} from './PercentBarCell'
 
 const styles = theme => ({
     lookupEditCell: {
@@ -136,17 +133,6 @@ const LookupEditCellBase = ({
     );
 export const LookupEditCell = withStyles(styles, { name: 'ControlledModeDemo' })(LookupEditCellBase);
 
-const Cell = (props) => {
-    const { column } = props;
-    if (column.name === 'discount') {
-        return <ProgressBarCell {...props} />;
-    }
-    if (column.name === 'amount') {
-        return <HighlightedCell {...props} />;
-    }
-    return <Table.Cell {...props} />;
-};
-
 const EditCell = (props) => {
     return <TableEditRow.Cell {...props} />;
 };
@@ -193,7 +179,7 @@ export default function Main({ history }) {
     const [pageSize, setPageSize] = useState(0);
     const [pageSizes] = useState([5, 10, 0]);
     const [columnOrder, setColumnOrder] = useState(['data', 'descricao', 'vagas', 'totalinscritos', 'confirmado', 'concluido', 'faltoso', 'transferido']);
-    const [percentColumns] = useState(['totalinscritos', 'confirmado', 'concluido', 'faltoso']);
+    const [percentBar] = useState({ confirmado: true, totalinscritos: true, concluido: true, faltoso: true, transferido: true })
     const [leftFixedColumns] = useState([TableEditColumn.COLUMN_TYPE]);
     const [totalSummaryItems] = useState([
         { columnName: 'concluido', type: 'sum' },
@@ -202,6 +188,21 @@ export default function Main({ history }) {
         { columnName: 'confirmado', type: 'sum' },
         { columnName: 'transferido', type: 'sum' },
     ]);
+
+    const Cell = (props) => {
+        const { column } = props;        
+
+        if (percentBar.hasOwnProperty(column.name)) {
+            if (props.row.hasOwnProperty('descricao')) {
+                if (props.row.descricao === "ESPERA") {
+                    return <Table.Cell {...props} />;
+                }
+            }
+            return <PercentBarCell {...props} />;
+        }
+
+        return <Table.Cell {...props} />;
+    };
 
     const changeAddedRows = value => setAddedRows(
         value.map(row => (Object.keys(row).length ? row : {
@@ -279,11 +280,11 @@ export default function Main({ history }) {
                 <div className="content">
                     <div style={{ 'display': 'flex', 'flexDirection': 'row' }}>
                         <button style={{ 'margin': '5px' }} onClick={ShowTurmas}>
-                            {loadingTurma && <CircularProgress disableShrink size="20px" style={{color:"#FFF"}} />}
+                            {loadingTurma && <CircularProgress disableShrink size="20px" style={{ color: "#FFF" }} />}
                             {!loadingTurma && "Turma"}
                         </button>
                         <button style={{ 'margin': '5px' }} onClick={ShowAlunos}>
-                            {loadingAluno && <CircularProgress disableShrink size="20px" style={{colorPrimary:"#FFF"}} />}
+                            {loadingAluno && <CircularProgress disableShrink size="20px" style={{ colorPrimary: "#FFF" }} />}
                             {!loadingAluno && "Aluno"}
                         </button>
                     </div>
@@ -291,7 +292,7 @@ export default function Main({ history }) {
             </div>
             <div className="data" id="data">
                 <center><h1>{typeData}</h1></center>
-                <p/>
+                <p />
                 <Paper>
                     <Grid
                         rows={rows}
@@ -319,13 +320,12 @@ export default function Main({ history }) {
                         />
                         <SummaryState
                             totalItems={totalSummaryItems}
+                            title="Total"
                         />
 
                         <IntegratedSorting />
                         <IntegratedPaging />
                         <IntegratedSummary />
-
-                        <PercentTypeProvider for={percentColumns} />
 
                         <DragDropProvider />
 
