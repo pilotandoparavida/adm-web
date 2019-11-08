@@ -278,11 +278,14 @@ export default function Main({ history }) {
         setTypeData('Aluno');
         setRows([]);
         setTableColumnExtensions([
-            { columnName: 'nome', width: 300, align: 'left' },
+            { columnName: 'nome', width: 180, align: 'left', wordWrapEnabled: true },
             { columnName: 'cnh', width: 150, align: 'right' },
             { columnName: 'nascimento', width: 130, align: 'center' },
             { columnName: 'celular', width: 130, align: 'left' },
             { columnName: 'sexo', width: 80, align: 'center' },
+            { columnName: 'turma', width: 100, align: 'center' },
+            { columnName: 'data', width: 100, align: 'center' },
+            { columnName: 'estado', width: 130, align: 'center' },
         ]);
         setColumns([
             { name: 'nome', title: 'Nome' },
@@ -290,11 +293,11 @@ export default function Main({ history }) {
             { name: 'nascimento', title: 'Nascimento' },
             { name: 'celular', title: 'Celular' },
             { name: 'sexo', title: 'Sexo' },
-            // { name: 'email', title: 'E-mail' },
-            // { name: 'cpf', title: 'CPF' },
-            // { name: 'rg', title: 'RG'},
+            { name: 'turma', title: 'Turma' },
+            { name: 'data', title: 'Data' },
+            { name: 'estado', title: 'Estado' },
         ]);
-        setColumnOrder(['nome', 'cnh', 'nascimento', 'celular', 'sexo']);
+        setColumnOrder(['nome', 'cnh', 'nascimento', 'celular', 'sexo', 'turma', 'data', 'estado']);
         setRows(await ListAluno());
         setLoadingAluno(false);
     }
