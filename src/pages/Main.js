@@ -51,15 +51,15 @@ const AddButton = ({ onExecute }) => (
         <Button
             color="primary"
             onClick={onExecute}
-            title="Create new row"
+            title="Criar"
         >
-            New
+            Adicionar
       </Button>
     </div>
 );
 
 const EditButton = ({ onExecute }) => (
-    <IconButton onClick={onExecute} title="Edit row">
+    <IconButton onClick={onExecute} title="Editar">
         <EditIcon />
     </IconButton>
 );
@@ -68,7 +68,7 @@ const DeleteButton = ({ onExecute }) => (
     <IconButton
         onClick={() => {
             // eslint-disable-next-line
-            if (window.confirm('Are you sure you want to delete this row?')) {
+            if (window.confirm('Você tem certeza que deseja deletar este item?')) {
                 onExecute();
             }
         }}
@@ -79,13 +79,13 @@ const DeleteButton = ({ onExecute }) => (
 );
 
 const CommitButton = ({ onExecute }) => (
-    <IconButton onClick={onExecute} title="Save changes">
+    <IconButton onClick={onExecute} title="Salvar alterações">
         <SaveIcon />
     </IconButton>
 );
 
 const CancelButton = ({ onExecute }) => (
-    <IconButton color="secondary" onClick={onExecute} title="Cancel changes">
+    <IconButton color="secondary" onClick={onExecute} title="Cancelar alterações">
         <CancelIcon />
     </IconButton>
 );
@@ -232,8 +232,12 @@ export default function Main({ history }) {
 
     useEffect (() => { // executa uma única vez
         async function fetchData () {
-            setRowsAluno(await ListAluno());
+            setLoadingAluno(true);
+            setLoadingTurma(true);
             setRowsTurma(await ListTurma());
+            setLoadingTurma(false);
+            setRowsAluno(await ListAluno());
+            setLoadingAluno(false);
         }
         fetchData();
         // eslint-disable-next-line
